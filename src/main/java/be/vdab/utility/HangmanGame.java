@@ -21,15 +21,20 @@ public class HangmanGame {
             "TRANSIENT", "TRUE", "TRY", "VOID", "VOLATILE", "WHILE"
     };
 
-
     public static final Random RANDOM = new Random();
+
     // Max errors before user lose
     public static final int MAX_ERRORS = 8;
+
     // Word to find
     private String wordToFind;
+
     // Word found stored in a char array to show progression of user
     private char[] wordFound;
+
+    // error counter //
     private int nbErrors;
+
     // letters already entered by user
     private ArrayList<String> letters = new ArrayList<>();
 
@@ -52,12 +57,15 @@ public class HangmanGame {
         }
     }
 
+    // play the game via CLI //
     public void play() {
 
         try (Scanner input = new Scanner(System.in)) {
+
             // we play while nbErrors is lower than max errors or user has found the word
             while (nbErrors < MAX_ERRORS) {
                 System.out.println("\nEnter a letter : ");
+
                 // get next input from user
                 String str = input.next();
 
@@ -77,12 +85,14 @@ public class HangmanGame {
                     System.out.println("\nYou win!");
                     break;
                 } else {
+
                     // we display nb tries remaining for the user
                     System.out.println("\n=> Nb tries remaining : " + (MAX_ERRORS - nbErrors));
                 }
             }
 
             if (nbErrors == MAX_ERRORS) {
+
                 // user lost
                 System.out.println("\nYou lose!");
                 System.out.println("=> Word to find was : " + wordToFind);
@@ -97,10 +107,13 @@ public class HangmanGame {
 
     // Method updating the word found after user entered a character
     private void enter(String c) {
+
         // we update only if c has not already been entered
         if (!letters.contains(c)) {
+
             // we check if word to find contains c
             if (wordToFind.contains(c)) {
+
                 // if so, we replace _ by the character c
                 int index = wordToFind.indexOf(c);
 
@@ -128,8 +141,6 @@ public class HangmanGame {
             if (i < wordFound.length - 1) {
                 builder.append(" ");
             }
-        }
-
-        return builder.toString();
+        } return builder.toString();
     }
 }
