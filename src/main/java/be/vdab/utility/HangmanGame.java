@@ -33,7 +33,7 @@ public class HangmanGame {
     private char[] wordFound;
 
     // error counter //
-    private int nbErrors;
+    private int playerGuessErrors;
 
     // letters already entered by user
     private ArrayList<String> letters = new ArrayList<>();
@@ -45,7 +45,7 @@ public class HangmanGame {
 
     // Method for starting a new game
     public void newGame() {
-        nbErrors = 0;
+        playerGuessErrors = 0;
         letters.clear();
         wordToFind = nextWordToFind();
 
@@ -63,7 +63,7 @@ public class HangmanGame {
         try (Scanner input = new Scanner(System.in)) {
 
             // we play while nbErrors is lower than max errors or user has found the word
-            while (nbErrors < MAX_ERRORS) {
+            while (playerGuessErrors < MAX_ERRORS) {
                 System.out.println("\nEnter a letter : ");
 
                 // get next input from user
@@ -87,11 +87,11 @@ public class HangmanGame {
                 } else {
 
                     // we display nb tries remaining for the user
-                    System.out.println("\n=> Nb tries remaining : " + (MAX_ERRORS - nbErrors));
+                    System.out.println("\n=> Nb tries remaining : " + (MAX_ERRORS - playerGuessErrors));
                 }
             }
 
-            if (nbErrors == MAX_ERRORS) {
+            if (playerGuessErrors == MAX_ERRORS) {
 
                 // user lost
                 System.out.println("\nYou lose!");
@@ -123,7 +123,7 @@ public class HangmanGame {
                 }
             } else {
                 // c not in the word => error
-                nbErrors++;
+                playerGuessErrors++;
             }
 
             // c is now a letter entered
@@ -131,7 +131,7 @@ public class HangmanGame {
         }
     }
 
-    // Method returning the state of the word found by the user until by now
+    // Method returning the state of the word found by the user until now
     private String wordFoundContent() {
         StringBuilder builder = new StringBuilder();
 
